@@ -4,7 +4,6 @@
 //
 //  Created by Milan on 4/3/17.
 //  Copyright © 2017 Milan. All rights reserved.
-//  TEST TEST
 
 import UIKit
 
@@ -68,6 +67,16 @@ class ViewController: UIViewController,UITableViewDataSource {
             }
         } //task
         task.resume()
+    }
+    
+    
+    // Takes an array of Restauraunts and returns a random restaurant name.
+    func getRandomRestaurant(restaurantList: Array<Any>) -> String{
+        let randomName : String = {
+            let randomIndex = Int(arc4random_uniform(UInt32(restaurantList.count)))
+            return restaurantList[randomIndex] as! String
+        }()
+        return randomName
     }
 }
 
