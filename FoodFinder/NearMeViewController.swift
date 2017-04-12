@@ -37,6 +37,20 @@ class NearMeViewController: UIViewController,UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel!.text = restaurants[indexPath.row] ["name"] as? String
+        
+        // try getting distance 
+        let geometry = restaurants[indexPath.row]["geometry"] as? [String: Any]
+        let location = geometry?["location"] as? [String: Any]
+        let latitude = location?["lat"] as? Double
+        
+        let distance = 3
+        
+        let distances = distance as? String
+        
+        // cell.distanceLabel!.text = "distances"       create a label in prototype cell called distanceLabel
+        
+        
+        
         return cell
     }
     
