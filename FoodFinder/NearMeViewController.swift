@@ -35,11 +35,14 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
+        // get user location and pass lat and long  to the api
         userLocation = locationManager.location
-        print("user")
-        print(userLocation?.coordinate.latitude)
+        let userlat = (userLocation?.coordinate.latitude)!
+        let userlong = (userLocation?.coordinate.longitude)!
 
-        let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=44.1680112%2C-93.9675153&radius=1200&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
+        let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(String(describing: userlat))%2C\(String(describing: userlong))&radius=1200&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
+        //let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=44.1518920%2C-93.9883800&radius=1200&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
+       // 44.1518920
         
         downloadRestaurants(urlString: url) {(array) ->() in
             self.restaurants = array as! [NSDictionary]
@@ -118,19 +121,17 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
     // Returns the distance between a restaurant and the User
     func getRestaurantDistance(lat:Double,long:Double) -> String{
         
-        var distanceinkm:String?
+       
         
         let restaurantLocation = CLLocation(latitude: lat, longitude: long)
     
         var distance:CLLocationDistance
-        
-        distance = (userLocation?.distance(from: restaurantLocation))!
-        
-        // just for test , put describing:distance later //
-        distanceinkm = String(describing: distance)
-        print("this is distance")
-        print(distance)
-        return distanceinkm!
+        //var myLocation = CLLocation(latitude: 44.1518920, longitude: -93.9883800)  // juat for test remove it afterwards
+        distance = (userLocation?.distance(from: restaurantLocation))!    //uncomment it later
+        //distance = (myLocation.distance(from: restaurantLocation))   // for test only 
+        let distanceMiles = NSString(format: "%.2f",distance * 0.000621371)  // meter to miles
+
+        return distanceMiles as String
     }
     
     // Takes an array of restauraunts and returns a random restaurant name
