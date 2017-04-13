@@ -18,20 +18,26 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
     var distanceList = ["10", "20", "30", "40", "50"]
     
     var restaurants = [NSDictionary]()
-    var userLocation:CLLocation?
     
     // create instance of .
     let locationManager = CLLocationManager()
+    var userLocation:CLLocation?
+    
     
     // Loads ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    
         restaurantsTable.dataSource = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
+        
+        userLocation = locationManager.location
+        print("user")
+        print(userLocation?.coordinate.latitude)
 
         let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=44.1680112%2C-93.9675153&radius=1200&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
         
@@ -67,7 +73,7 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         
         cell.textLabel!.text = restaurants[indexPath.row] ["name"] as? String
         
-        //cell.detailTextLabel!.text = getRestaurantDistance(lat: restaurantLat!, long: restaurantLong!)
+        cell.detailTextLabel!.text = getRestaurantDistance(lat: restaurantLat!, long: restaurantLong!)
         
         // cell.distanceLabel!.text = "distances"       create a label in prototype cell called distanceLabel
         
@@ -104,8 +110,9 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
     
     // Assigns User's current location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    
+        
         userLocation = locations[0]
+        print("called")
     }
     
     // Returns the distance between a restaurant and the User
@@ -114,14 +121,14 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         var distanceinkm:String?
         
         let restaurantLocation = CLLocation(latitude: lat, longitude: long)
-        print(lat)
-        print(long)
-        var distance:CLLocationDistance?
+    
+        var distance:CLLocationDistance
         
-        distance = userLocation?.distance(from: restaurantLocation)
+        distance = (userLocation?.distance(from: restaurantLocation))!
         
         // just for test , put describing:distance later //
-        distanceinkm = String(describing: lat)
+        distanceinkm = String(describing: distance)
+        print("this is distance")
         print(distance)
         return distanceinkm!
     }
