@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -87,7 +88,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="37" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kqX-4u-mFq">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="556"/>
+                                <rect key="frame" x="0.0" y="35" width="375" height="519"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="separatorColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -101,7 +102,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2UM-4n-56r">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2UM-4n-56r" userLabel="Choose For Me Button">
                                 <rect key="frame" x="0.0" y="555" width="375" height="112"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="112" id="JHH-F2-ngk"/>
@@ -110,29 +111,62 @@
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VYJ-wg-3QM">
+                                <rect key="frame" x="188" y="67" width="185" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="185" id="6bd-Lx-QY6"/>
+                                </constraints>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="fj7-w8-Jup"/>
+                                </connections>
+                            </textField>
+                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wlo-DR-8p3">
+                                <rect key="frame" x="0.0" y="97" width="375" height="147"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="147" id="9E6-0W-q0F"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="TI4-Q7-J0J"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="6jV-ON-6wY"/>
+                                </connections>
+                            </pickerView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DistancePicture" translatesAutoresizingMaskIntoConstraints="NO" id="C7c-oO-3WD" userLabel="Distance Image">
+                                <rect key="frame" x="0.0" y="64" width="188" height="33"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="kqX-4u-mFq" secondAttribute="trailing" id="175-a4-Ew3"/>
                             <constraint firstItem="2UM-4n-56r" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="4c4-qe-png"/>
-                            <constraint firstAttribute="trailing" secondItem="kqX-4u-mFq" secondAttribute="trailing" id="Acc-SB-GKc"/>
-                            <constraint firstItem="2UM-4n-56r" firstAttribute="trailing" secondItem="kqX-4u-mFq" secondAttribute="trailing" id="Gb1-vy-Wvb"/>
-                            <constraint firstAttribute="trailing" secondItem="kqX-4u-mFq" secondAttribute="trailing" id="UA9-1N-F9d"/>
-                            <constraint firstItem="kqX-4u-mFq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="WmM-LD-c64"/>
-                            <constraint firstItem="kqX-4u-mFq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="YpZ-Lm-O3n"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="kqX-4u-mFq" secondAttribute="bottom" constant="111" id="gvg-q4-dJu"/>
-                            <constraint firstItem="2UM-4n-56r" firstAttribute="leading" secondItem="kqX-4u-mFq" secondAttribute="leading" id="lP1-ZC-IbI"/>
-                            <constraint firstItem="kqX-4u-mFq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="uLy-SB-xSG"/>
-                            <constraint firstItem="kqX-4u-mFq" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="-64" id="xaj-6R-JSJ"/>
+                            <constraint firstItem="VYJ-wg-3QM" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="3" id="5k4-TD-9Aa"/>
+                            <constraint firstItem="Wlo-DR-8p3" firstAttribute="top" secondItem="C7c-oO-3WD" secondAttribute="bottom" id="7CD-NH-mKL"/>
+                            <constraint firstItem="kqX-4u-mFq" firstAttribute="trailing" secondItem="Wlo-DR-8p3" secondAttribute="trailing" id="7zA-jB-msU"/>
+                            <constraint firstItem="kqX-4u-mFq" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="35" id="9pr-k1-dj2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VYJ-wg-3QM" secondAttribute="trailing" constant="-14" id="I02-lS-n9p"/>
+                            <constraint firstItem="2UM-4n-56r" firstAttribute="top" secondItem="kqX-4u-mFq" secondAttribute="bottom" constant="1" id="IHf-fR-YhU"/>
+                            <constraint firstAttribute="trailing" secondItem="kqX-4u-mFq" secondAttribute="trailing" id="M3I-QU-buN"/>
+                            <constraint firstItem="kqX-4u-mFq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="StT-i6-Ahg"/>
+                            <constraint firstItem="kqX-4u-mFq" firstAttribute="leading" secondItem="2UM-4n-56r" secondAttribute="leading" id="Tsq-RF-gyr"/>
+                            <constraint firstItem="VYJ-wg-3QM" firstAttribute="leading" secondItem="C7c-oO-3WD" secondAttribute="trailing" id="gdU-64-308"/>
+                            <constraint firstItem="C7c-oO-3WD" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="oUf-dN-OuP"/>
+                            <constraint firstItem="kqX-4u-mFq" firstAttribute="leading" secondItem="C7c-oO-3WD" secondAttribute="leading" id="tzB-6e-E4a"/>
+                            <constraint firstItem="Wlo-DR-8p3" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="97" id="wKv-Fm-uHc"/>
+                            <constraint firstItem="kqX-4u-mFq" firstAttribute="leading" secondItem="Wlo-DR-8p3" secondAttribute="leading" id="xKG-ep-mmU"/>
+                            <constraint firstItem="kqX-4u-mFq" firstAttribute="trailing" secondItem="2UM-4n-56r" secondAttribute="trailing" id="y7N-Ib-HFi"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="distanceDropdown" destination="Wlo-DR-8p3" id="zNv-Cl-932"/>
+                        <outlet property="distanceTextBox" destination="VYJ-wg-3QM" id="lF9-Qw-h7k"/>
                         <outlet property="restaurantsTable" destination="kqX-4u-mFq" id="rPK-ey-9A2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1245.5" y="80.5"/>
+            <point key="canvasLocation" x="1244" y="79.610194902548727"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="yod-Uw-Emy">
@@ -196,6 +230,7 @@
     </scenes>
     <resources>
         <image name="ChooseForMe" width="624" height="176"/>
+        <image name="DistancePicture" width="888" height="259"/>
         <image name="FoodFinderBackground" width="330" height="589"/>
     </resources>
 </document>
