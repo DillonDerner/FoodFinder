@@ -113,6 +113,7 @@
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VYJ-wg-3QM">
                                 <rect key="frame" x="188" y="67" width="185" height="30"/>
+                                <color key="backgroundColor" red="0.89554323189999996" green="0.89554323189999996" blue="0.89554323189999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="185" id="6bd-Lx-QY6"/>
                                 </constraints>
@@ -125,7 +126,7 @@
                             </textField>
                             <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wlo-DR-8p3">
                                 <rect key="frame" x="0.0" y="97" width="375" height="147"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.89554323189999996" green="0.89554323189999996" blue="0.89554323189999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="147" id="9E6-0W-q0F"/>
                                 </constraints>
