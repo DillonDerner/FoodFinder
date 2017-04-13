@@ -28,6 +28,10 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>FoodFinder needs to know your location</string>
+	<key>NSLocationAlwaysUseDescription</key>
+	<string>FoodFinder always needs to know your location</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
