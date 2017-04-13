@@ -6,16 +6,30 @@
 //  Copyright © 2017 Milan. All rights reserved.
 
 import UIKit
+import CoreLocation
+import MapKit
 
-class NearMeViewController: UIViewController,UITableViewDataSource {
+class NearMeViewController: UIViewController,UITableViewDataSource,CLLocationManagerDelegate{
 
     @IBOutlet weak var restaurantsTable: UITableView!
     var restaurants = [NSDictionary]()
+    var userLocation:CLLocation?
+    
+    let locationManager = CLLocationManager() // create instance of .
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         restaurantsTable.dataSource = self
+        
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+
+        
+        
+        
         
         let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=44.1680112%2C-93.9675153&radius=1200&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
         
@@ -24,6 +38,11 @@ class NearMeViewController: UIViewController,UITableViewDataSource {
             self.restaurantsTable.reloadData()
         }
     }
+    
+    
+    // geolocation of user
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -36,16 +55,17 @@ class NearMeViewController: UIViewController,UITableViewDataSource {
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = restaurants[indexPath.row] ["name"] as? String
         
-        // try getting distance 
+        
+        // each restaurant's lat and long
         let geometry = restaurants[indexPath.row]["geometry"] as? [String: Any]
         let location = geometry?["location"] as? [String: Any]
-        let latitude = location?["lat"] as? Double
+        let restaurantLat = location?["lat"] as? Double
+        let restaurantLong = location?["lng"] as? Double
         
-        let distance = 3
+        cell.textLabel!.text = restaurants[indexPath.row] ["name"] as? String
+        cell.detailTextLabel!.text = getRestaurantDistance(lat: restaurantLat!, long: restaurantLong!)
         
-        let distances = distance as? String
         
         // cell.distanceLabel!.text = "distances"       create a label in prototype cell called distanceLabel
         
@@ -79,6 +99,28 @@ class NearMeViewController: UIViewController,UITableViewDataSource {
             }
         }
         task.resume()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {  // user's current location
+    
+        userLocation = locations[0]
+    }
+    
+    
+    func getRestaurantDistance(lat:Double,long:Double) -> String{  //returns distance between restaurant and user
+        
+        var distanceinkm:String?
+        
+        let restaurantLocation = CLLocation(latitude: lat, longitude: long)
+        print(lat)
+        print(long)
+        var distance:CLLocationDistance?
+        
+        distance = userLocation?.distance(from: restaurantLocation)
+        distanceinkm = String(describing: lat)     // just for test , put describing:distance later
+        print(distance)
+        return distanceinkm!
+        
     }
     
     // Takes an array of Restauraunts and returns a random restaurant name.
