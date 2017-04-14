@@ -15,7 +15,7 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
     
     @IBOutlet weak var distanceTextBox: UITextField!
     @IBOutlet weak var distanceDropdown: UIPickerView!
-    var distanceList = ["10", "20", "30", "40", "50"]
+    var distanceList = ["1000", "2000", "3000", "4000", "5000"]  // distance in meters
     
     var restaurants = [NSDictionary]()
     
@@ -27,6 +27,7 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
     // Loads ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadRestaurants(radius: "1200")   //pass default radius of 1200 m for first load
         
     
         restaurantsTable.dataSource = self
@@ -113,6 +114,35 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         task.resume()
     }
     
+    
+    func loadRestaurants(radius:String){   //loads restaurants list
+        
+        restaurantsTable.dataSource = self
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()
+        
+        // get user location and pass lat and long  to the api
+        userLocation = locationManager.location
+        let userlat = (userLocation?.coordinate.latitude)!
+        let userlong = (userLocation?.coordinate.longitude)!
+        
+        let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(String(describing: userlat))%2C\(String(describing: userlong))&radius=\(radius)&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
+        //let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=44.1518920%2C-93.9883800&radius=\(radius)&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
+        // 44.1518920
+        
+        downloadRestaurants(urlString: url) {(array) ->() in
+            self.restaurants = array as! [NSDictionary]
+            self.restaurantsTable.reloadData()
+            self.distanceTextBox.text = self.distanceList[0]
+        }
+
+    }
+    
+    
+    
+    
     // Assigns User's current location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -128,9 +158,9 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         let restaurantLocation = CLLocation(latitude: lat, longitude: long)
     
         var distance:CLLocationDistance
-        //var myLocation = CLLocation(latitude: 44.1518920, longitude: -93.9883800)  // juat for test remove it afterwards
+       // var myLocation = CLLocation(latitude: 44.1518920, longitude: -93.9883800)  // juat for test remove it afterwards
         distance = (userLocation?.distance(from: restaurantLocation))!    //uncomment it later
-        //distance = (myLocation.distance(from: restaurantLocation))   // for test only 
+       //distance = (myLocation.distance(from: restaurantLocation))   // for test only comment 
         let distanceMiles = NSString(format: "%.2f",distance * 0.000621371)  // meter to miles
 
         return distanceMiles as String
@@ -164,6 +194,7 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
     // This function assists the dropdown menu
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.distanceTextBox.text = self.distanceList[row]
+        loadRestaurants(radius: self.distanceList[row])
         self.distanceDropdown.isHidden = true
     }
     
