@@ -12,6 +12,7 @@
 		F1D197921E92F1AB003CA409 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1D197901E92F1AB003CA409 /* Main.storyboard */; };
 		F1D197941E92F1AB003CA409 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1D197931E92F1AB003CA409 /* Assets.xcassets */; };
 		F1D197971E92F1AB003CA409 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1D197951E92F1AB003CA409 /* LaunchScreen.storyboard */; };
+		FAB575161EA11B710099289D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB575151EA11B710099289D /* SettingViewController.swift */; };
 		FAF705FA1E9EAA870006494C /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF705F91E9EAA870006494C /* FavoritesViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -23,6 +24,7 @@
 		F1D197931E92F1AB003CA409 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1D197961E92F1AB003CA409 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1D197981E92F1AB003CA409 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FAB575151EA11B710099289D /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		FAF705F91E9EAA870006494C /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -58,6 +60,7 @@
 			children = (
 				F1D1978C1E92F1AB003CA409 /* AppDelegate.swift */,
 				F1D1978E1E92F1AB003CA409 /* NearMeViewController.swift */,
+				FAB575151EA11B710099289D /* SettingViewController.swift */,
 				F1D197901E92F1AB003CA409 /* Main.storyboard */,
 				F1D197931E92F1AB003CA409 /* Assets.xcassets */,
 				F1D197951E92F1AB003CA409 /* LaunchScreen.storyboard */,
@@ -143,6 +146,7 @@
 				F1D1978F1E92F1AB003CA409 /* NearMeViewController.swift in Sources */,
 				FAF705FA1E9EAA870006494C /* FavoritesViewController.swift in Sources */,
 				F1D1978D1E92F1AB003CA409 /* AppDelegate.swift in Sources */,
+				FAB575161EA11B710099289D /* SettingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

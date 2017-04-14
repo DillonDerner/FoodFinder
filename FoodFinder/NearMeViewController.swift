@@ -40,7 +40,9 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         let userlat = (userLocation?.coordinate.latitude)!
         let userlong = (userLocation?.coordinate.longitude)!
 
-        let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(String(describing: userlat))%2C\(String(describing: userlong))&radius=1200&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
+        let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(String(describing: userlat))%2C\(String(describing: userlong))&radius=5000&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
+        print(url)
+        
         //let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=44.1518920%2C-93.9883800&radius=1200&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
        // 44.1518920
         
