@@ -28,31 +28,9 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
     override func viewDidLoad() {
         super.viewDidLoad()
         loadRestaurants(radius: "1200")   //pass default radius of 1200 m for first load
-        
+        self.distanceTextBox.text = "1200"
     
-        restaurantsTable.dataSource = self
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
-        
-        // get user location and pass lat and long  to the api
-        userLocation = locationManager.location
-        let userlat = (userLocation?.coordinate.latitude)!
-        let userlong = (userLocation?.coordinate.longitude)!
-
-        let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(String(describing: userlat))%2C\(String(describing: userlong))&radius=5000&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
-        print(url)
-        
-        //let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=44.1518920%2C-93.9883800&radius=1200&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
-       // 44.1518920
-        
-        downloadRestaurants(urlString: url) {(array) ->() in
-            self.restaurants = array as! [NSDictionary]
-            self.restaurantsTable.reloadData()
-            self.distanceTextBox.text = self.distanceList[0]
-        }
-    }
+           }
     
     // geolocation of user
     
@@ -135,7 +113,7 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         downloadRestaurants(urlString: url) {(array) ->() in
             self.restaurants = array as! [NSDictionary]
             self.restaurantsTable.reloadData()
-            self.distanceTextBox.text = self.distanceList[0]
+            //self.distanceTextBox.text = self.distanceList[0]
         }
 
     }
