@@ -92,6 +92,20 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         task.resume()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {  // send details of selected restaurant to detail view
+        
+        if segue.identifier == "seeDetails" {
+            
+            let index = restaurantsTable.indexPathForSelectedRow
+            let restaurantSelected = restaurants[index!.row]
+            
+            let restaurantDetailVC = segue.destination as! RestaurantDetailViewController
+            restaurantDetailVC.restaurant = restaurantSelected
+            
+            
+        }
+    }
+    
     
     func loadRestaurants(radius:String){   //loads restaurants list
         
@@ -118,8 +132,7 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
 
     }
     
-    
-    
+  
     
     // Assigns User's current location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
