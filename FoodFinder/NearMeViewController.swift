@@ -15,29 +15,28 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
     
     @IBOutlet weak var distanceTextBox: UITextField!
     @IBOutlet weak var distanceDropdown: UIPickerView!
-    var distanceList = ["1000", "2000", "3000", "4000", "5000"]  // distance in meters
+    var distanceList = ["1200", "2400", "3600", "4800", "6000"]  // distance in meters
     
     var restaurants = [NSDictionary]()
-    
-    // create instance of .
     let locationManager = CLLocationManager()
     var userLocation:CLLocation?
-    
     
     // Loads ViewController
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadRestaurants(radius: "1200")   //pass default radius of 1200 m for first load
+        
+        // Pass default radius of 1200m for first load
+        loadRestaurants(radius: "1200")
         self.distanceTextBox.text = "1200"
+        
+        
     
-           }
-    
-    // geolocation of user
+    }
+
     
     // Built-in function
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // Returns a count of nearby restaurants
@@ -49,18 +48,16 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        // each restaurant's lat and long
+        // Each restaurant's lat and long
         let geometry = restaurants[indexPath.row]["geometry"] as? [String: Any]
         let location = geometry?["location"] as? [String: Any]
         let restaurantLat = location?["lat"] as? Double
         let restaurantLong = location?["lng"] as? Double
         
+        // Populates each cell with Name and Distance from our user
         cell.textLabel!.text = restaurants[indexPath.row] ["name"] as? String
-        
         cell.detailTextLabel!.text = getRestaurantDistance(lat: restaurantLat!, long: restaurantLong!)
-        
-        // cell.distanceLabel!.text = "distances"       create a label in prototype cell called distanceLabel
-        
+
         return cell
     }
     
@@ -76,12 +73,11 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
                 let list = jsonDictionary["results"] as? [[String: AnyObject]]
 
                 for restaurant in list! {
-                    //let restaurantName = restaurant["name"] as? String
                     restaurantsList.append(restaurant as! NSDictionary)
                 }
                 
                 DispatchQueue.main.async(execute: {
-                    completionHandler(restaurantsList as NSArray)/// code goes here
+                    completionHandler(restaurantsList as NSArray)
                 })
                 
             }
@@ -92,22 +88,21 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         task.resume()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {  // send details of selected restaurant to detail view
+    // Send details of selected restaurant to detail view
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "seeDetails" {
             
             let index = restaurantsTable.indexPathForSelectedRow
             let restaurantSelected = restaurants[index!.row]
             
-            let restaurantDetailVC = segue.destination as! RestaurantDetailViewController
-            restaurantDetailVC.restaurant = restaurantSelected
-            
-            
+            //let restaurantDetailVC = segue.destination as! RestaurantDetailViewController
+            //restaurantDetailVC.restaurant = restaurantSelected
         }
     }
     
-    
-    func loadRestaurants(radius:String){   //loads restaurants list
+    // Loads restaurants list
+    func loadRestaurants(radius:String){
         
         restaurantsTable.dataSource = self
         locationManager.delegate = self
@@ -115,45 +110,33 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
-        // get user location and pass lat and long  to the api
+        // get user location and pass lat and long to the api
         userLocation = locationManager.location
         let userlat = (userLocation?.coordinate.latitude)!
         let userlong = (userLocation?.coordinate.longitude)!
         
         let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(String(describing: userlat))%2C\(String(describing: userlong))&radius=\(radius)&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
-        //let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=44.1518920%2C-93.9883800&radius=\(radius)&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
-        // 44.1518920
-        
+
         downloadRestaurants(urlString: url) {(array) ->() in
             self.restaurants = array as! [NSDictionary]
             self.restaurantsTable.reloadData()
-            //self.distanceTextBox.text = self.distanceList[0]
         }
-
     }
-    
-  
     
     // Assigns User's current location
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         userLocation = locations[0]
-        print("called")
     }
     
     // Returns the distance between a restaurant and the User
     func getRestaurantDistance(lat:Double,long:Double) -> String{
         
-       
-        
         let restaurantLocation = CLLocation(latitude: lat, longitude: long)
-    
-        var distance:CLLocationDistance
-       // var myLocation = CLLocation(latitude: 44.1518920, longitude: -93.9883800)  // juat for test remove it afterwards
-        distance = (userLocation?.distance(from: restaurantLocation))!    //uncomment it later
-       //distance = (myLocation.distance(from: restaurantLocation))   // for test only comment 
-        let distanceMiles = NSString(format: "%.2f",distance * 0.000621371)  // meter to miles
-
+        var distance: CLLocationDistance
+        distance = (userLocation?.distance(from: restaurantLocation))!
+        
+        // convert meters to miles
+        let distanceMiles = NSString(format: "%.2f",distance * 0.000621371)
         return distanceMiles as String
     }
     

@@ -229,9 +229,8 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TiT-iA-rwG" userLabel="BlackBar">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TiT-iA-rwG" userLabel="BlackBar">
                                 <rect key="frame" x="0.0" y="64" width="375" height="36"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2UM-4n-56r" userLabel="Choose For Me Button">
@@ -247,10 +246,10 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VYJ-wg-3QM">
-                                <rect key="frame" x="188" y="67" width="137" height="30"/>
+                                <rect key="frame" x="208" y="67" width="117" height="30"/>
                                 <color key="backgroundColor" red="0.89554323189999996" green="0.89554323189999996" blue="0.89554323189999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="137" id="LfA-ep-rRt"/>
+                                    <constraint firstAttribute="width" constant="117" id="slf-fg-W5G"/>
                                 </constraints>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -273,7 +272,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SearchDistance" translatesAutoresizingMaskIntoConstraints="NO" id="C7c-oO-3WD" userLabel="Distance Image">
                                 <rect key="frame" x="0.0" y="64" width="188" height="33"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Miles" translatesAutoresizingMaskIntoConstraints="NO" id="VcR-rB-n2e">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Km" translatesAutoresizingMaskIntoConstraints="NO" id="VcR-rB-n2e">
                                 <rect key="frame" x="331" y="64" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="8DZ-Kr-duS"/>
@@ -283,20 +282,24 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="TiT-iA-rwG" firstAttribute="top" secondItem="VcR-rB-n2e" secondAttribute="top" id="3BB-fM-NCp"/>
                             <constraint firstItem="2UM-4n-56r" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="4c4-qe-png"/>
                             <constraint firstItem="Wlo-DR-8p3" firstAttribute="top" secondItem="C7c-oO-3WD" secondAttribute="bottom" id="7CD-NH-mKL"/>
                             <constraint firstItem="kqX-4u-mFq" firstAttribute="trailing" secondItem="Wlo-DR-8p3" secondAttribute="trailing" id="7zA-jB-msU"/>
                             <constraint firstItem="kqX-4u-mFq" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" constant="35" id="9pr-k1-dj2"/>
+                            <constraint firstItem="VYJ-wg-3QM" firstAttribute="centerY" secondItem="TiT-iA-rwG" secondAttribute="centerY" id="DpB-bJ-3AY"/>
                             <constraint firstAttribute="trailing" secondItem="VcR-rB-n2e" secondAttribute="trailing" constant="9" id="Hnj-al-2lu"/>
                             <constraint firstItem="2UM-4n-56r" firstAttribute="top" secondItem="kqX-4u-mFq" secondAttribute="bottom" constant="1" id="IHf-fR-YhU"/>
-                            <constraint firstItem="VYJ-wg-3QM" firstAttribute="leading" secondItem="C7c-oO-3WD" secondAttribute="trailing" id="Iuv-OE-cJF"/>
                             <constraint firstAttribute="trailing" secondItem="kqX-4u-mFq" secondAttribute="trailing" id="M3I-QU-buN"/>
+                            <constraint firstItem="TiT-iA-rwG" firstAttribute="trailing" secondItem="Wlo-DR-8p3" secondAttribute="trailing" id="QBc-uJ-DlQ"/>
                             <constraint firstItem="kqX-4u-mFq" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="StT-i6-Ahg"/>
                             <constraint firstItem="kqX-4u-mFq" firstAttribute="leading" secondItem="2UM-4n-56r" secondAttribute="leading" id="Tsq-RF-gyr"/>
                             <constraint firstItem="VcR-rB-n2e" firstAttribute="top" secondItem="C7c-oO-3WD" secondAttribute="top" id="ZWe-vk-eeL"/>
-                            <constraint firstItem="VYJ-wg-3QM" firstAttribute="bottom" secondItem="C7c-oO-3WD" secondAttribute="bottom" id="c4C-Tp-udi"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="VYJ-wg-3QM" secondAttribute="trailing" constant="34" id="ekc-Bt-GGx"/>
+                            <constraint firstItem="VcR-rB-n2e" firstAttribute="leading" secondItem="VYJ-wg-3QM" secondAttribute="trailing" constant="6" id="l2q-vE-ePB"/>
                             <constraint firstItem="C7c-oO-3WD" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="oUf-dN-OuP"/>
+                            <constraint firstItem="TiT-iA-rwG" firstAttribute="leading" secondItem="C7c-oO-3WD" secondAttribute="leading" id="po2-hr-FC7"/>
+                            <constraint firstItem="VYJ-wg-3QM" firstAttribute="leading" secondItem="C7c-oO-3WD" secondAttribute="trailing" constant="20" id="qye-FC-Flb"/>
+                            <constraint firstItem="VYJ-wg-3QM" firstAttribute="bottom" secondItem="C7c-oO-3WD" secondAttribute="bottom" id="rzq-nX-j9v"/>
                             <constraint firstItem="kqX-4u-mFq" firstAttribute="leading" secondItem="C7c-oO-3WD" secondAttribute="leading" id="tzB-6e-E4a"/>
                             <constraint firstItem="Wlo-DR-8p3" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="97" id="wKv-Fm-uHc"/>
                             <constraint firstItem="kqX-4u-mFq" firstAttribute="leading" secondItem="Wlo-DR-8p3" secondAttribute="leading" id="xKG-ep-mmU"/>
@@ -381,6 +384,7 @@
                             <constraint firstItem="xph-zI-FGf" firstAttribute="trailing" secondItem="BAw-9Z-ifo" secondAttribute="trailing" id="iW4-CU-dpT"/>
                             <constraint firstItem="54f-Ig-WQh" firstAttribute="top" secondItem="kDc-hs-48G" secondAttribute="top" id="lYp-Qm-e3s"/>
                             <constraint firstItem="54f-Ig-WQh" firstAttribute="trailing" secondItem="UNn-6H-qlx" secondAttribute="trailingMargin" id="reI-JU-dJZ"/>
+                            <constraint firstItem="54f-Ig-WQh" firstAttribute="width" secondItem="kDc-hs-48G" secondAttribute="width" id="rf5-Al-BTN"/>
                             <constraint firstItem="xph-zI-FGf" firstAttribute="leading" secondItem="kDc-hs-48G" secondAttribute="leading" id="ud5-1E-ptW"/>
                             <constraint firstItem="54f-Ig-WQh" firstAttribute="leading" secondItem="kDc-hs-48G" secondAttribute="trailing" constant="47" id="viF-vK-OSa"/>
                             <constraint firstItem="xph-zI-FGf" firstAttribute="centerX" secondItem="yn5-NV-nOG" secondAttribute="centerX" id="yIg-nf-Oam"/>
@@ -455,8 +459,8 @@
         <image name="ChooseForMe" width="624" height="176"/>
         <image name="FoodFinderGreenBkg" width="751" height="1336"/>
         <image name="GreenBkg" width="751" height="1336"/>
+        <image name="Km" width="94" height="87"/>
         <image name="KmOrMiWhite" width="222" height="87"/>
-        <image name="Miles" width="72" height="87"/>
         <image name="NumberOfResults" width="525" height="87"/>
         <image name="SearchDistance" width="472" height="87"/>
         <image name="SettingsButton" width="262" height="257"/>
