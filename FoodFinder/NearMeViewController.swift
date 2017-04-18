@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
+class NearMeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate{
 
     @IBOutlet weak var restaurantsTable: UITableView!
     
@@ -59,6 +59,11 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         cell.detailTextLabel!.text = getRestaurantDistance(lat: restaurantLat!, long: restaurantLong!)
 
         return cell
+    }
+    
+    // This function gets called when a table row is selected
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(restaurants[indexPath.row])")
     }
     
     // Populates restaurantList using the maps api and json file
