@@ -117,6 +117,7 @@ class NearMeViewController: UIViewController, UITableViewDataSource, CLLocationM
         
         let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(String(describing: userlat))%2C\(String(describing: userlong))&radius=\(radius)&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
 
+        print(url)
         downloadRestaurants(urlString: url) {(array) ->() in
             self.restaurants = array as! [NSDictionary]
             self.restaurantsTable.reloadData()

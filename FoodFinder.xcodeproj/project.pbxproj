@@ -62,13 +62,13 @@
 			children = (
 				F1D1978C1E92F1AB003CA409 /* AppDelegate.swift */,
 				F1D1978E1E92F1AB003CA409 /* NearMeViewController.swift */,
+				FAF705F91E9EAA870006494C /* FavoritesViewController.swift */,
+				FAB575191EA175E60099289D /* FoodViewController.swift */,
 				FAB575151EA11B710099289D /* SettingViewController.swift */,
 				F1D197901E92F1AB003CA409 /* Main.storyboard */,
-				FAB575191EA175E60099289D /* FoodViewController.swift */,
 				F1D197931E92F1AB003CA409 /* Assets.xcassets */,
 				F1D197951E92F1AB003CA409 /* LaunchScreen.storyboard */,
 				F1D197981E92F1AB003CA409 /* Info.plist */,
-				FAF705F91E9EAA870006494C /* FavoritesViewController.swift */,
 			);
 			path = FoodFinder;
 			sourceTree = "<group>";
