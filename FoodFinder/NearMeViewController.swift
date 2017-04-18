@@ -17,6 +17,8 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var distanceDropdown: UIPickerView!
     var distanceList = ["1200", "2400", "3600", "4800", "6000"]  // distance in meters
     
+    var selectedRow = -1
+    
     var restaurants = [NSDictionary]()
     let locationManager = CLLocationManager()
     var userLocation:CLLocation?
@@ -63,7 +65,8 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     
     // This function gets called when a table row is selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("\(restaurants[indexPath.row])")
+        // print("\(restaurants[indexPath.row])") // can be taken out
+        self.performSegue(withIdentifier: "detail", sender: nil)
     }
     
     // Populates restaurantList using the maps api and json file
@@ -96,6 +99,20 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     // Send details of selected restaurant to detail view
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
+        let foodView:FoodViewController = segue.destination as! FoodViewController
+        selectedRow = restaurantsTable.indexPathForSelectedRow!.row
+        // Send Name
+        foodView.setName(t: restaurants[selectedRow]["name"]! as! String)
+        print(" ")
+        print(restaurants[selectedRow]["name"]!)
+        
+        // Send Location
+        foodView.setLocation(t: restaurants[selectedRow]["vicinity"]! as! String)
+        print(" ")
+        print(restaurants[selectedRow]["vicinity"]!)
+
+        
+        // Not needed anymore
         if segue.identifier == "seeDetails" {
             
             let index = restaurantsTable.indexPathForSelectedRow

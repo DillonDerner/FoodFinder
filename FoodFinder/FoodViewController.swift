@@ -10,10 +10,41 @@ import UIKit
 
 class FoodViewController: UIViewController {
 
+    @IBOutlet weak var foodName: UITextField!
+    var name:String = ""
+    
+    @IBOutlet weak var locationTextView: UITextView!
+    var location:String = ""
+    
+    @IBOutlet weak var foodImageView: UIImageView!
+    
+    @IBAction func addToFavoritesButton(_ sender: Any) {
+    }
+    
+    @IBAction func copyLocationButton(_ sender: Any) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        foodName.text = name
+        locationTextView.text = location
+    }
+    
+    func setName(t:String) {
+        name = t
+        
+        if isViewLoaded {
+            foodName.text = t
+        }
+    }
+    
+    func setLocation(t:String) {
+        location = t
+        
+        if isViewLoaded {
+            locationTextView.text = t
+        }
     }
 
     override func didReceiveMemoryWarning() {
