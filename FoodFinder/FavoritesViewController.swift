@@ -7,24 +7,80 @@
 //
 
 import UIKit
-import Foundation
 
-class FavoritesViewController: UIViewController,UITableViewDataSource {
+
+
+class FavoritesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    @IBOutlet weak var restaurantsTable: UITableView!
+    @IBOutlet weak var table: UITableView!
     
-    var restaurants = [NSDictionary]()
+    var data:[String] = []
+    var backButton:UIBarButtonItem? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.title = "Favorites"
         
-        restaurantsTable.dataSource = self
+        backButton = self.navigationItem.leftBarButtonItem
+        self.navigationItem.rightBarButtonItem = editButtonItem
         
-        let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=44.1680112%2C-93.9675153&radius=1200&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
+        load()
+    }
+    
+    
+    func addFavorite() {
+        let name:String = "Food \(data.count + 1)"
+        data.insert(name, at: 0)
+        let indexPath:IndexPath = IndexPath(row: 0, section: 0)
+        table.insertRows(at: [indexPath], with: .automatic)
+        save()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell:UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        cell.textLabel?.text = data[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        data.remove(at: indexPath.row)
+        table.deleteRows(at: [indexPath], with: .fade)
+        save()
+    }
+    
+    // Runs when Edit button is pushed
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        table.setEditing(editing, animated: animated)
         
-        downloadRestaurants(urlString: url) {(array) ->() in
-            self.restaurants = array as! [NSDictionary]
-            self.restaurantsTable.reloadData()
+        // change the left navigation button to + or < back
+        if(editing){
+            let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
+            self.navigationItem.leftBarButtonItem = addButton
+        }
+        else{
+            self.navigationItem.leftBarButtonItem = backButton
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("\(data[indexPath.row])")
+    }
+    
+    
+    func save() {
+        UserDefaults.standard.setValue(data, forKey: "notes")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func load() {
+        if let loadedData = UserDefaults.standard.value(forKey: "notes") as? [String] {
+            data = loadedData
+            table.reloadData()
         }
     }
     
@@ -32,45 +88,8 @@ class FavoritesViewController: UIViewController,UITableViewDataSource {
         super.didReceiveMemoryWarning()
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{
-        return restaurants.count
-    }
-    
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel!.text = restaurants[indexPath.row] ["name"] as? String
-        return cell
-    }
-    
-    func downloadRestaurants(urlString:String,completionHandler:@escaping (_ array:NSArray)-> ()){
-        var restaurantsList = [NSDictionary]()
-        let url = URL(string: urlString)
-        let session = URLSession.shared
-        let task = session.dataTask(with:url!) { (data, response, error) -> Void in
-            
-            do{
-                let jsonDictionary = try JSONSerialization.jsonObject(with: data!, options:.allowFragments) as! NSDictionary
-                let list = jsonDictionary["results"] as? [[String: AnyObject]]
-                
-                for restaurant in list! {
-                    //let restaurantName = restaurant["name"] as? String
-                    restaurantsList.append(restaurant as! NSDictionary)
-                }
-                
-                DispatchQueue.main.async(execute: {
-                    completionHandler(restaurantsList as NSArray)/// code goes here
-                })
-                
-            }
-            catch{
-                print("invalid json format")
-            }
-        }
-        task.resume()
-    }
-    
     // Takes an array of Restauraunts and returns a random restaurant name.
-    func getRandomRestaurant(restaurantList: Array<Any>) -> String{
+    func getRandomRestaurant(restaurantList: Array<Any>) -> String {
         let randomName : String = {
             let randomIndex = Int(arc4random_uniform(UInt32(restaurantList.count)))
             return restaurantList[randomIndex] as! String
