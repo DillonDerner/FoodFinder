@@ -15,7 +15,11 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var distanceTextBox: UITextField!
     @IBOutlet weak var distanceDropdown: UIPickerView!
+    
+    @IBOutlet weak var distanceImage: UIImageView!
     var distanceList = ["1200", "2400", "3600", "4800", "6000"]  // distance in meters
+    var distanceListMiles = ["1","2","3","4","5"] // distance in miles
+    var miles:Bool? = false
     
     var selectedRow = -1
     
@@ -27,14 +31,32 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        load()
+        switchDistance()
+        
         // Pass default radius of 1200m for first load
         loadRestaurants(radius: "1200")
         self.distanceTextBox.text = "1200"
         
         
+        
     
     }
+    
+    func switchDistance() {
+        if(miles!) {
+            self.distanceImage.image = #imageLiteral(resourceName: "Miles")
+        } else {
+            self.distanceImage.image = #imageLiteral(resourceName: "Km")
+        }
+    }
 
+    func load() {
+        if let loadedData = UserDefaults.standard.value(forKey: "distanceType") as? Bool {
+            miles = loadedData
+        }
+        print(miles!)
+    }
     
     // Built-in function
     override func didReceiveMemoryWarning() {

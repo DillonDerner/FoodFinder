@@ -276,7 +276,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SearchDistance" translatesAutoresizingMaskIntoConstraints="NO" id="C7c-oO-3WD" userLabel="Distance Image">
                                 <rect key="frame" x="0.0" y="64" width="188" height="33"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Km" translatesAutoresizingMaskIntoConstraints="NO" id="VcR-rB-n2e">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Miles" translatesAutoresizingMaskIntoConstraints="NO" id="VcR-rB-n2e">
                                 <rect key="frame" x="331" y="64" width="35" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="35" id="8DZ-Kr-duS"/>
@@ -312,6 +312,7 @@
                     </view>
                     <connections>
                         <outlet property="distanceDropdown" destination="Wlo-DR-8p3" id="zNv-Cl-932"/>
+                        <outlet property="distanceImage" destination="VcR-rB-n2e" id="BYo-Xr-oCE"/>
                         <outlet property="distanceTextBox" destination="VYJ-wg-3QM" id="lF9-Qw-h7k"/>
                         <outlet property="restaurantsTable" destination="kqX-4u-mFq" id="rPK-ey-9A2"/>
                         <segue destination="5yg-6U-SOp" kind="show" identifier="detail" id="w7Y-qD-yWh"/>
@@ -422,7 +423,6 @@
         <!--Favorites-->
         <scene sceneID="yod-Uw-Emy">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tmc-pI-n3A" sceneMemberID="firstResponder"/>
                 <viewController title="Favorites" id="5ri-Uj-Dae" userLabel="Favorites" customClass="FavoritesViewController" customModule="FoodFinder" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ALo-8W-FRf"/>
@@ -476,6 +476,7 @@
                         <outlet property="table" destination="MAF-oz-nzS" id="0nx-Uf-j9q"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tmc-pI-n3A" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1244" y="842"/>
         </scene>
@@ -484,8 +485,8 @@
         <image name="ChooseForMe" width="624" height="176"/>
         <image name="FoodFinderGreenBkg" width="751" height="1336"/>
         <image name="GreenBkg" width="751" height="1336"/>
-        <image name="Km" width="94" height="87"/>
         <image name="KmOrMiWhite" width="222" height="87"/>
+        <image name="Miles" width="72" height="87"/>
         <image name="NumberOfResults" width="525" height="87"/>
         <image name="SearchDistance" width="472" height="87"/>
         <image name="SettingsButton" width="262" height="257"/>

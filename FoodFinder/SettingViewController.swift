@@ -20,7 +20,9 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     var resultsList = ["10","20","30","40","50"]
-    var miles:Bool? = nil
+    
+    // kmMiSwitch State
+    var miles:Bool? = true
     
 
     
@@ -28,25 +30,23 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         super.viewDidLoad()
         
         load()
-        
         if (miles != nil) {
             if(miles)! {
                 kmMiSwitch.setOn(true, animated: false)
             } else {
                 kmMiSwitch.setOn(false, animated: false)
             }
-            
         }
         
     }
 
+    
     func checkSwitch() {
         if (kmMiSwitch.isOn) {
             miles = true
         }else {
             miles = false
         }
-        print(miles!)
         save()
     }
     
