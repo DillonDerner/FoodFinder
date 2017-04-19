@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class FavoritesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var table: UITableView!
@@ -25,6 +23,14 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         self.navigationItem.rightBarButtonItem = editButtonItem
         
         load()
+    }
+    
+    func addToFavorite(t: String) {
+        if let loadedData = UserDefaults.standard.value(forKey: "notes") as? [String] {
+            data = loadedData
+        }
+        data.append(t)
+        save()
     }
     
     

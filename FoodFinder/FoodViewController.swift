@@ -2,7 +2,7 @@
 //  FoodViewController.swift
 //  FoodFinder
 //
-//  Created by Macbook  on 4/14/17.
+//  Created by Dillon on 4/14/17.
 //  Copyright © 2017 Milan. All rights reserved.
 //
 
@@ -19,6 +19,8 @@ class FoodViewController: UIViewController {
     @IBOutlet weak var foodImageView: UIImageView!
     
     @IBAction func addToFavoritesButton(_ sender: Any) {
+        let favorites = FavoritesViewController()
+        favorites.addToFavorite(t: name)
     }
     
     @IBAction func copyLocationButton(_ sender: Any) {
