@@ -12,15 +12,57 @@ class SettingViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
 
     @IBOutlet weak var NumberOfResultsTextBox: UITextField!
     @IBOutlet weak var NumberOfResultsDropdown: UIPickerView!
-    var resultsList = ["10","20","30","40","50"]
     
+    @IBOutlet weak var kmMiSwitch: UISwitch!
+
+    @IBAction func kmMiSwitch(_ sender: Any) {
+        checkSwitch()
+    }
+    
+    var resultsList = ["10","20","30","40","50"]
+    var miles:Bool? = nil
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+        load()
+        
+        if (miles != nil) {
+            if(miles)! {
+                kmMiSwitch.setOn(true, animated: false)
+            } else {
+                kmMiSwitch.setOn(false, animated: false)
+            }
+            
+        }
+        
     }
 
+    func checkSwitch() {
+        if (kmMiSwitch.isOn) {
+            miles = true
+        }else {
+            miles = false
+        }
+        print(miles!)
+        save()
+    }
+    
+    
+    func save() {
+        UserDefaults.standard.setValue(miles, forKey: "distanceType")
+        UserDefaults.standard.synchronize()
+    }
+    
+    func load() {
+        if let loadedData = UserDefaults.standard.value(forKey: "distanceType") as? Bool {
+            miles = loadedData
+        }
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

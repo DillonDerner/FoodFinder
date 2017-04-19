@@ -129,6 +129,9 @@
                             </imageView>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pBB-3f-yvH">
                                 <rect key="frame" x="163" y="154" width="51" height="31"/>
+                                <connections>
+                                    <action selector="kmMiSwitch:" destination="J0s-zF-RnY" eventType="valueChanged" id="KCB-z0-npx"/>
+                                </connections>
                             </switch>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="NumberOfResults" translatesAutoresizingMaskIntoConstraints="NO" id="SO0-zB-X9d">
                                 <rect key="frame" x="65" y="262" width="245" height="76"/>
@@ -180,6 +183,7 @@
                     <connections>
                         <outlet property="NumberOfResultsDropdown" destination="IHL-dq-amo" id="8uG-VH-zNy"/>
                         <outlet property="NumberOfResultsTextBox" destination="8WU-eT-Frp" id="KV8-Rx-vZ8"/>
+                        <outlet property="kmMiSwitch" destination="pBB-3f-yvH" id="pyD-cr-fy0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sT6-9A-VjT" userLabel="First Responder" sceneMemberID="firstResponder"/>
