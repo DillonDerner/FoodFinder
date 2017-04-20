@@ -17,8 +17,13 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var distanceDropdown: UIPickerView!
     
     @IBOutlet weak var distanceImage: UIImageView!
-    var distanceList = ["1200", "2400", "3600", "4800", "6000"]  // distance in meters
-    var distanceListMiles = ["1","2","3","4","5"] // distance in miles
+    
+    // Distance in Meters
+    var distanceList = ["1200", "2400", "3600", "4800", "6000", "12000", "24000", "36000", "48000", "60000"]
+    
+    // Distance in Miles
+    var distanceListMiles = ["1","2","3","4","5","10","20","30","40","50"]
+    
     var miles:Bool? = false
     
     var selectedRow = -1
@@ -34,28 +39,32 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         load()
         switchDistance()
         
-        // Pass default radius of 1200m for first load
-        loadRestaurants(radius: "1200")
-        self.distanceTextBox.text = "1200"
-        
-        
-        
     
     }
     
+    // Handles what has been set in the Settings View
     func switchDistance() {
+
+        // Miles
         if(miles!) {
             self.distanceImage.image = #imageLiteral(resourceName: "Miles")
+            loadRestaurants(radius: "1200")
+            self.distanceTextBox.text = "1"
+
+        // Kilometers
         } else {
             self.distanceImage.image = #imageLiteral(resourceName: "Km")
+            loadRestaurants(radius: "1200")
+            self.distanceTextBox.text = "1200"
         }
     }
 
+    // assigns distance type from memory to miles:Bool
     func load() {
+        
         if let loadedData = UserDefaults.standard.value(forKey: "distanceType") as? Bool {
             miles = loadedData
         }
-        print(miles!)
     }
     
     // Built-in function
@@ -87,7 +96,6 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     
     // This function gets called when a table row is selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // print("\(restaurants[indexPath.row])") // can be taken out
         self.performSegue(withIdentifier: "detail", sender: nil)
     }
     
@@ -123,6 +131,7 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         
         let foodView:FoodViewController = segue.destination as! FoodViewController
         selectedRow = restaurantsTable.indexPathForSelectedRow!.row
+        
         // Send Name
         foodView.setName(t: restaurants[selectedRow]["name"]! as! String)
         print(" ")
@@ -133,16 +142,6 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         print(" ")
         print(restaurants[selectedRow]["vicinity"]!)
 
-        
-        // Not needed anymore
-        if segue.identifier == "seeDetails" {
-            
-            let index = restaurantsTable.indexPathForSelectedRow
-            let restaurantSelected = restaurants[index!.row]
-            
-            //let restaurantDetailVC = segue.destination as! RestaurantDetailViewController
-            //restaurantDetailVC.restaurant = restaurantSelected
-        }
     }
     
     // Loads restaurants list
@@ -201,19 +200,44 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     
     // This function assists the dropdown menu
     public func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int{
-        return distanceList.count
+        
+        if(miles!) {
+            return distanceListMiles.count
+        } else {
+            return distanceList.count
+        }
+        
     }
     
     // This function assists the dropdown menu
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         self.view.endEditing(true)
-        return distanceList[row]
+        
+        if(miles!) {
+            return distanceListMiles[row]
+        } else {
+            return distanceList[row]
+        }
     }
     
     // This function assists the dropdown menu
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.distanceTextBox.text = self.distanceList[row]
-        loadRestaurants(radius: self.distanceList[row])
+        
+        if (miles!) {
+            print("Sent in Miles")
+            self.distanceTextBox.text = self.distanceListMiles[row]
+            let a:Int? = Int(self.distanceListMiles[row])
+            print(a!)
+            let thisRadius = a! * 1609 // 1 miles is 1609km
+            print(thisRadius)
+            loadRestaurants(radius: String(thisRadius))
+            print(String(thisRadius))
+        } else {
+            print("Sent in KM")
+            self.distanceTextBox.text = self.distanceList[row]
+            loadRestaurants(radius: self.distanceList[row])
+        }
+        
         self.distanceDropdown.isHidden = true
     }
     
