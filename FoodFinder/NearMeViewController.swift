@@ -111,7 +111,7 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
                 let list = jsonDictionary["results"] as? [[String: AnyObject]]
 
                 for restaurant in list! {
-                    restaurantsList.append(restaurant as! NSDictionary)
+                    restaurantsList.append(restaurant as NSDictionary)
                 }
                 
                 DispatchQueue.main.async(execute: {
@@ -224,16 +224,11 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         if (miles!) {
-            print("Sent in Miles")
             self.distanceTextBox.text = self.distanceListMiles[row]
             let a:Int? = Int(self.distanceListMiles[row])
-            print(a!)
             let thisRadius = a! * 1609 // 1 miles is 1609km
-            print(thisRadius)
             loadRestaurants(radius: String(thisRadius))
-            print(String(thisRadius))
         } else {
-            print("Sent in KM")
             self.distanceTextBox.text = self.distanceList[row]
             loadRestaurants(radius: self.distanceList[row])
         }

@@ -12,6 +12,9 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     
     @IBOutlet weak var table: UITableView!
     
+    @IBOutlet weak var colorWheelImage: UIImageView!
+    
+    
     var data:[String] = []
     var backButton:UIBarButtonItem? = nil
     
@@ -25,6 +28,26 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         load()
     }
     
+    @IBAction func chooseForMeButton(_ sender: Any) {
+        self.colorWheelImage.isHidden = false
+        
+        
+        UIView.animate(withDuration: 2, delay: 0, animations: ({
+            let diceRoll = Int(arc4random_uniform(6) + 1)
+            print(diceRoll)
+            for _ in 1...diceRoll {
+                self.colorWheelImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+                self.colorWheelImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 2)
+            }
+        }), completion: { (finished:Bool) in
+            self.colorWheelImage.isHidden = true
+            
+            print("finished animating")
+            
+        })
+        
+    }
+
     func addToFavorite(t: String) {
         if let loadedData = UserDefaults.standard.value(forKey: "notes") as? [String] {
             data = loadedData
