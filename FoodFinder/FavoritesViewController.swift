@@ -74,7 +74,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         )
     }
     
-    
+    // Presets the user with a popup showing the random restaurant we selected for them
     @IBAction func showRandomAlert(_ sender: UIButton) {
         
         // choose a randome restaurant and display message
@@ -91,7 +91,46 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         self.present(alert, animated: true, completion: nil)
     }
     
+    
+    // Presents the user with a popup to add a new Favorite
+    func showAddButtonAlert() {
+        var response:String = ""
+        
+        let alertController = UIAlertController(title: "Add New Favorite", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+        let saveAction = UIAlertAction(title: "Save", style: UIAlertActionStyle.default, handler: {
+            alert -> Void in
+            
+            let firstTextField = alertController.textFields![0] as UITextField
+            
+            if(firstTextField.text != nil) {
+                response = firstTextField.text!
+            }
+            
+            self.data.insert(response, at: 0)
+            let indexPath:IndexPath = IndexPath(row: 0, section: 0)
+            self.table.insertRows(at: [indexPath], with: .automatic)
+            self.save()
+            
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+            (action : UIAlertAction!) -> Void in
+            
+        })
+        
+        alertController.addTextField { (textField : UITextField!) -> Void in
+            textField.placeholder = "Enter First Name"
+        }
+        
+        alertController.addAction(saveAction)
+        alertController.addAction(cancelAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+        
+    }
 
+    
     // !Used by external Views to Add to the Favorites list!
     func addToFavorite(t: String) {
         if let loadedData = UserDefaults.standard.value(forKey: "notes") as? [String] {
@@ -101,14 +140,6 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         save()
     }
     
-    // NEEDS REWORKING
-    func addFavorite() {
-        let name:String = "Food \(data.count + 1)"
-        data.insert(name, at: 0)
-        let indexPath:IndexPath = IndexPath(row: 0, section: 0)
-        table.insertRows(at: [indexPath], with: .automatic)
-        save()
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
@@ -133,7 +164,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         
         // change the left navigation button to + or < back
         if(editing){
-            let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addFavorite))
+            let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(showAddButtonAlert))
             self.navigationItem.leftBarButtonItem = addButton
         }
         else{
