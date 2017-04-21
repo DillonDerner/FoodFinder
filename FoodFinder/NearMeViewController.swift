@@ -15,14 +15,35 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var distanceTextBox: UITextField!
     @IBOutlet weak var distanceDropdown: UIPickerView!
-    
     @IBOutlet weak var distanceImage: UIImageView!
+    
+    @IBOutlet weak var colorWheelImage: UIImageView!
     
     // Distance in Meters
     var distanceList = ["1200", "2400", "3600", "4800", "6000", "12000", "24000", "36000", "48000", "60000"]
     
     // Distance in Miles
     var distanceListMiles = ["1","2","3","4","5","10","20","30","40","50"]
+    
+    var foodMessage:[String] = [
+        "Spin Again?",
+        "Yumm!",
+        "YES!",
+        "Maybe next time..",
+        "That's a restaurant!",
+        "Ewww",
+        "What is that?",
+        "Ice Cream Anyone?",
+        "I'm Buying!",
+        "Hot Dog!",
+        "...",
+        "Not today...",
+        "Spin Again Please!",
+        "Spin! Spin! Spin!",
+        "Tastes like chicken",
+        "WOW!",
+        "Don't Spin Again..."
+    ]
     
     var miles:Bool? = false
     
@@ -46,15 +67,87 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
             let filePaths = try fileManager.contentsOfDirectory(atPath: tempFolderPath)
             for filePath in filePaths {
                 try fileManager.removeItem(atPath: NSTemporaryDirectory() + filePath)
-                print(filePath)
+                //print(filePath)
             }
         } catch let error as NSError {
             print("Could not clear temp folder: \(error.debugDescription)")
         }
         
+    }
+    
+    
+    @IBOutlet weak var chooseForMeButton: UIButton!
+    
+    @IBAction func chooseForMeButton(_ sender: Any) {
         
+        // If the restaurants list is empty, do not allow this button to work
+        if (restaurants.isEmpty) { return }
+        
+        self.colorWheelImage.isHidden = false
+        self.chooseForMeButton.isEnabled = false
+        
+        UIView.animate(
+            withDuration: 2,
+            delay: 0,
+            animations: ({
+                let diceRoll = Int(arc4random_uniform(6) + 1)
+                
+                for _ in 1...diceRoll {
+                    self.colorWheelImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+                    self.colorWheelImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 2)
+                }
+            }),
+            completion: { (finished:Bool) in
+                self.colorWheelImage.isHidden = true
+                self.chooseForMeButton.isEnabled = true
+                self.showRandomAlert(self.chooseForMeButton)
+            }
+        )
     
     }
+    
+    
+    @IBAction func showRandomAlert(_ sender: UIButton) {
+        
+        // setup a list of the current restaurant names
+        var restaurantNameList:[String] = []
+        for restaurant in restaurants{
+            let thisName = String(describing: restaurant.object(forKey: "name")!)
+            restaurantNameList.append(thisName)
+        }
+        
+        // setup a list of the current restaurant names
+        var restaurantLocationList:[String] = []
+        for restaurant in restaurants{
+            let thisLocation = String(describing: restaurant.object(forKey: "vicinity")!)
+            restaurantLocationList.append(thisLocation)
+        }
+        
+        
+        // choose a randome restaurant and display message
+        let randomFoodNumber    = Int(arc4random_uniform(UInt32(restaurantNameList.count)))
+        
+        let randomMessageNumber = Int(arc4random_uniform(UInt32(self.foodMessage.count)))
+        
+        // create the alert
+        let alert = UIAlertController(title: restaurantNameList[randomFoodNumber], message: restaurantLocationList[randomFoodNumber], preferredStyle: UIAlertControllerStyle.alert)
+        
+
+        // add an action button that copies the address
+        let copyLocationButton = UIAlertAction(title: "Copy Location", style: UIAlertActionStyle.default) { _ in
+            UIPasteboard.general.string = restaurantLocationList[randomFoodNumber] as String
+        }
+        
+        // add an action button with a funny name that brings the user back to the NearMeView
+        let returnButton = UIAlertAction(title: self.foodMessage[randomMessageNumber], style: UIAlertActionStyle.default, handler: nil)
+        
+        alert.addAction(copyLocationButton)
+        alert.addAction(returnButton)
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     // Handles what has been set in the Settings View
     func switchDistance() {
@@ -148,13 +241,13 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         
         // Send Name
         foodView.setName(t: restaurants[selectedRow]["name"]! as! String)
-        print(" ")
-        print(restaurants[selectedRow]["name"]!)
+        
+        // print(restaurants[selectedRow]["name"]!)
         
         // Send Location
         foodView.setLocation(t: restaurants[selectedRow]["vicinity"]! as! String)
-        print(" ")
-        print(restaurants[selectedRow]["vicinity"]!)
+        
+        // print(restaurants[selectedRow]["vicinity"]!)
         
         let photos = restaurants[selectedRow]["photos"]! as? NSArray
         
@@ -175,16 +268,16 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
      // delete all the previous photos from temp folder 
     
     func deletepreviousPhotos() {
-        var fileManager = FileManager.default
-        var tempFolderPath = NSTemporaryDirectory()
+        let fileManager = FileManager.default
+        let tempFolderPath = NSTemporaryDirectory()
         
         do {
             let filePaths = try fileManager.contentsOfDirectory(atPath: tempFolderPath)
             for filePath in filePaths {
                 try fileManager.removeItem(atPath: NSTemporaryDirectory() + filePath)
-                print("files all called")
-                print(filePath)
-                type(of: filePath)
+                //print("files all called")
+                //print(filePath)
+                //type(of: filePath)
             }
         } catch let error as NSError {
             print("Could not clear temp folder: \(error.debugDescription)")
@@ -229,15 +322,6 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         // convert meters to miles
         let distanceMiles = NSString(format: "%.2f",distance * 0.000621371)
         return distanceMiles as String
-    }
-    
-    // Takes an array of restauraunts and returns a random restaurant name
-    func getRandomRestaurant(restaurantList: Array<Any>) -> String{
-        let randomName : String = {
-            let randomIndex = Int(arc4random_uniform(UInt32(restaurantList.count)))
-            return restaurantList[randomIndex] as! String
-        }()
-        return randomName
     }
     
     // This function assists the dropdown menu

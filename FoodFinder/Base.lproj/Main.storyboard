@@ -248,6 +248,9 @@
                                 <state key="normal" image="ChooseForMe">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="chooseForMeButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fQB-3d-aDa"/>
+                                </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VYJ-wg-3QM">
                                 <rect key="frame" x="208" y="67" width="117" height="30"/>
@@ -283,6 +286,10 @@
                                     <constraint firstAttribute="height" constant="35" id="cyz-Lf-6n2"/>
                                 </constraints>
                             </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="colorWheel" translatesAutoresizingMaskIntoConstraints="NO" id="2QP-wT-5e1">
+                                <rect key="frame" x="52" y="210" width="270" height="270"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -311,6 +318,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="chooseForMeButton" destination="2UM-4n-56r" id="SRs-EM-Jcn"/>
+                        <outlet property="colorWheelImage" destination="2QP-wT-5e1" id="Mam-24-2kh"/>
                         <outlet property="distanceDropdown" destination="Wlo-DR-8p3" id="zNv-Cl-932"/>
                         <outlet property="distanceImage" destination="VcR-rB-n2e" id="BYo-Xr-oCE"/>
                         <outlet property="distanceTextBox" destination="VYJ-wg-3QM" id="lF9-Qw-h7k"/>
@@ -357,7 +366,7 @@
                                     <constraint firstAttribute="height" constant="38" id="EAR-P2-Atd"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
-                                <state key="normal" title="Location">
+                                <state key="normal" title="Copy Location">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -411,6 +420,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addToFavoritesButton" destination="kDc-hs-48G" id="s1R-Ru-hcZ"/>
+                        <outlet property="copyLocationButton" destination="54f-Ig-WQh" id="ebb-LU-SLK"/>
                         <outlet property="foodImageView" destination="xph-zI-FGf" id="76a-DF-n5w"/>
                         <outlet property="foodName" destination="BAw-9Z-ifo" id="uAX-HT-1zr"/>
                         <outlet property="locationTextView" destination="dVB-Sw-oYL" id="OpR-Vf-Fdb"/>
@@ -463,7 +474,7 @@
                                 </connections>
                             </button>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="colorWheel" translatesAutoresizingMaskIntoConstraints="NO" id="Mhj-3c-tYl">
-                                <rect key="frame" x="-63" y="210" width="503" height="268"/>
+                                <rect key="frame" x="52" y="210" width="270" height="270"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -480,6 +491,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZYq-9B-asP"/>
                     <connections>
+                        <outlet property="chooseForMeButton" destination="Pi3-Zy-FPF" id="qhM-cq-uiP"/>
                         <outlet property="colorWheelImage" destination="Mhj-3c-tYl" id="BDM-g0-Pg1"/>
                         <outlet property="table" destination="MAF-oz-nzS" id="0nx-Uf-j9q"/>
                     </connections>
