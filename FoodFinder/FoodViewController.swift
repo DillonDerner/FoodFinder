@@ -115,7 +115,7 @@ class FoodViewController: UIViewController {
     @IBAction func showFavoritesAlert(_ sender: UIButton) {
         
         // create the alert
-        let alert = UIAlertController(title: "Added To Favorites!", message: name, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: name, message: "Added To Favorites!", preferredStyle: UIAlertControllerStyle.alert)
         
         // add an action (button)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))

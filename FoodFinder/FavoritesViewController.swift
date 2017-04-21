@@ -193,12 +193,12 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         super.didReceiveMemoryWarning()
     }
     
-    // Takes an array of Restauraunts and returns a random restaurant name.
-    func getRandomRestaurant(restaurantList: Array<Any>) -> String {
-        let randomName : String = {
-            let randomIndex = Int(arc4random_uniform(UInt32(restaurantList.count)))
-            return restaurantList[randomIndex] as! String
-        }()
-        return randomName
+    // Deletes the whole favorites list
+    func clearFavorites() {
+        if let loadedData = UserDefaults.standard.value(forKey: "notes") as? [String] {
+            data = loadedData
+            data = []
+            save()
+        }
     }
 }
