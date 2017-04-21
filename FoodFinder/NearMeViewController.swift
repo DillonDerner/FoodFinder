@@ -39,6 +39,20 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         load()
         switchDistance()
         
+        let fileManager = FileManager.default
+        let tempFolderPath = NSTemporaryDirectory()
+        
+        do {
+            let filePaths = try fileManager.contentsOfDirectory(atPath: tempFolderPath)
+            for filePath in filePaths {
+                try fileManager.removeItem(atPath: NSTemporaryDirectory() + filePath)
+                print(filePath)
+            }
+        } catch let error as NSError {
+            print("Could not clear temp folder: \(error.debugDescription)")
+        }
+        
+        
     
     }
     
@@ -141,9 +155,42 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         foodView.setLocation(t: restaurants[selectedRow]["vicinity"]! as! String)
         print(" ")
         print(restaurants[selectedRow]["vicinity"]!)
+        
+        let photos = restaurants[selectedRow]["photos"]! as? NSArray
+        
+        let photosdic = photos![0] as! NSDictionary
+        
+        let photoref = photosdic["photo_reference"]! as? String    // photo reference
+        
+        //send photoref to favoritesViewController.swift
+        
+        foodView.setPhoto(t: photoref!)
+        
+        deletepreviousPhotos()  //delete previous photo to load new in temp folder
+     
 
     }
     
+    
+     // delete all the previous photos from temp folder 
+    
+    func deletepreviousPhotos() {
+        var fileManager = FileManager.default
+        var tempFolderPath = NSTemporaryDirectory()
+        
+        do {
+            let filePaths = try fileManager.contentsOfDirectory(atPath: tempFolderPath)
+            for filePath in filePaths {
+                try fileManager.removeItem(atPath: NSTemporaryDirectory() + filePath)
+                print("files all called")
+                print(filePath)
+                type(of: filePath)
+            }
+        } catch let error as NSError {
+            print("Could not clear temp folder: \(error.debugDescription)")
+        }
+        
+    }
     // Loads restaurants list
     func loadRestaurants(radius:String){
         
