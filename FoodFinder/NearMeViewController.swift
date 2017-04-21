@@ -19,11 +19,11 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBOutlet weak var colorWheelImage: UIImageView!
     
-    // Distance in Meters
-    var distanceList = ["1200", "2400", "3600", "4800", "6000", "12000", "24000", "36000", "48000", "60000"]
+    // Distance in KiloMeters
+    var distanceList = ["2", "4", "6", "8", "10", "15", "20", "30", "40", "50"]
     
     // Distance in Miles
-    var distanceListMiles = ["1","2","3","4","5","10","20","30","40","50"]
+    var distanceListMiles = ["1","2","3","4","5","10","15","20","25","30"]
     
     var foodMessage:[String] = [
         "Spin Again?",
@@ -155,14 +155,14 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         // Miles
         if(miles!) {
             self.distanceImage.image = #imageLiteral(resourceName: "Miles")
-            loadRestaurants(radius: "1200")
-            self.distanceTextBox.text = "1"
+            loadRestaurants(radius: "1")
+            self.distanceTextBox.text = "1" // initial radius / search distance 1 mile
 
         // Kilometers
         } else {
             self.distanceImage.image = #imageLiteral(resourceName: "Km")
-            loadRestaurants(radius: "1200")
-            self.distanceTextBox.text = "1200"
+            loadRestaurants(radius: "2")
+            self.distanceTextBox.text = "2"   // initial distance 2km
         }
     }
 
@@ -286,19 +286,28 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     }
     // Loads restaurants list
     func loadRestaurants(radius:String){
-        
+        var radiusinmeter:String
+        print(miles!)
         restaurantsTable.dataSource = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
         
+        //var radiusinmeter = "2000"
+        if(miles!){
+            
+        radiusinmeter = String(Double(radius)! * 1609.34) // miles to meter
+        }else{
+        radiusinmeter = String(Double(radius)! * 1000) // km to meter
+
+        }
         // get user location and pass lat and long to the api
         userLocation = locationManager.location
         let userlat = (userLocation?.coordinate.latitude)!
         let userlong = (userLocation?.coordinate.longitude)!
         
-        let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(String(describing: userlat))%2C\(String(describing: userlong))&radius=\(radius)&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
+        let url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=\(String(describing: userlat))%2C\(String(describing: userlong))&radius=\(radiusinmeter)&type=restaurant&key=AIzaSyBaqf7fNiIr26U7nWbXz5wblqgvjg-vaiY"
 
         print(url)
         downloadRestaurants(urlString: url) {(array) ->() in
@@ -314,14 +323,18 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     
     // Returns the distance between a restaurant and the User
     func getRestaurantDistance(lat:Double,long:Double) -> String{
-        
+        var distance1:String
         let restaurantLocation = CLLocation(latitude: lat, longitude: long)
         var distance: CLLocationDistance
         distance = (userLocation?.distance(from: restaurantLocation))!
         
         // convert meters to miles
-        let distanceMiles = NSString(format: "%.2f",distance * 0.000621371)
-        return distanceMiles as String
+        if(miles!){
+        return NSString(format: "%.2f",distance * 0.000621371) as String // return distance in miles if preferred search is in milesin miles
+        }else {
+        return NSString(format: "%.2f",distance * 0.001) as String // return distance in km if in km
+        }
+    
     }
     
     // This function assists the dropdown menu
@@ -356,14 +369,14 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         
         if (miles!) {
             self.distanceTextBox.text = self.distanceListMiles[row]
-            let a:Int? = Int(self.distanceListMiles[row])
-            let thisRadius = a! * 1609 // 1 miles is 1609km
-            loadRestaurants(radius: String(thisRadius))
+           // let a:Int? = Int(self.distanceListMiles[row])
+           // let thisRadius = a! * 1609 // 1 miles is 1609km
+           // loadRestaurants(radius: String(thisRadius))   logic changed to handle inside loadRest func
         } else {
             self.distanceTextBox.text = self.distanceList[row]
-            loadRestaurants(radius: self.distanceList[row])
+           // loadRestaurants(radius: self.distanceList[row])
         }
-        
+        loadRestaurants(radius: self.distanceList[row])
         self.distanceDropdown.isHidden = true
     }
     
