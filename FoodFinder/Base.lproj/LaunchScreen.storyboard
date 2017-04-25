@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,27 +21,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GreenBkg" translatesAutoresizingMaskIntoConstraints="NO" id="Ynx-UM-tkp">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LoadScreen" translatesAutoresizingMaskIntoConstraints="NO" id="Ynx-UM-tkp">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlackQuestionMark" translatesAutoresizingMaskIntoConstraints="NO" id="R5j-aW-nYX">
-                                <rect key="frame" x="66" y="120" width="243" height="447"/>
-                            </imageView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="SdJ-Rp-syu">
-                                <rect key="frame" x="177" y="131" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Ynx-UM-tkp" secondAttribute="trailing" id="2Ds-5V-Grk"/>
-                            <constraint firstItem="R5j-aW-nYX" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="50" id="589-Oz-fzL"/>
                             <constraint firstItem="Ynx-UM-tkp" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="ETy-xb-4r9"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="R5j-aW-nYX" secondAttribute="trailing" constant="50" id="H6t-h6-fAJ"/>
-                            <constraint firstItem="R5j-aW-nYX" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="100" id="JlR-fm-XJY"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="Ynx-UM-tkp" secondAttribute="bottom" id="KC7-8q-Gja"/>
                             <constraint firstItem="Ynx-UM-tkp" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="OhL-4H-fKv"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="R5j-aW-nYX" secondAttribute="bottom" constant="100" id="dGu-1A-HMk"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -52,7 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="BlackQuestionMark" width="37" height="86"/>
-        <image name="GreenBkg" width="751" height="1336"/>
+        <image name="LoadScreen" width="3125" height="5551"/>
     </resources>
 </document>

@@ -33,8 +33,7 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         "Spin Again Please!",
         "Spin! Spin! Spin!",
         "Tastes like chicken",
-        "WOW!",
-        "Don't Spin Again..."
+        "WOW!"
     ]
     
     var backButton:UIBarButtonItem? = nil
@@ -42,11 +41,20 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Favorites"
+        chooseForMeButton.center.y += self.view.bounds.width
         
         backButton = self.navigationItem.leftBarButtonItem
         self.navigationItem.rightBarButtonItem = editButtonItem
         
         load()
+        
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [],
+                       animations: {
+                        self.chooseForMeButton.center.y -= self.view.bounds.width
+        },
+                       completion: nil
+        )
+        
     }
     
     @IBOutlet weak var chooseForMeButton: UIButton!
@@ -156,6 +164,44 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         table.deleteRows(at: [indexPath], with: .fade)
         save()
     }
+    ////////////////////////////
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.alpha = 0
+        let transform = CATransform3DTranslate(CATransform3DIdentity, -100, 20, 0)
+        cell.layer.transform = transform
+            
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut,
+                       animations: {
+                        cell.alpha = 1.0
+                        cell.layer.transform = CATransform3DIdentity
+        },
+                       completion: nil
+        )
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /**
+        cell.layer.transform = CATransform3DMakeScale(-1, -1, 1)
+        
+        UIView.animate(withDuration: 3, animations: {
+            cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
+        },completion: { finished in
+            UIView.animate(withDuration: 0.1, animations: {
+                cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
+            })
+        })
+        */
+    }
+    
     
     // Runs when Edit button is pushed
     override func setEditing(_ editing: Bool, animated: Bool) {

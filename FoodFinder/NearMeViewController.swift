@@ -41,8 +41,7 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         "Spin Again Please!",
         "Spin! Spin! Spin!",
         "Tastes like chicken",
-        "WOW!",
-        "Don't Spin Again..."
+        "WOW!"
     ]
     
     var miles:Bool? = false
