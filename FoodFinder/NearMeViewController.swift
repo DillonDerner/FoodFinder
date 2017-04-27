@@ -353,7 +353,6 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     
     // Returns the distance between a restaurant and the User
     func getRestaurantDistance(lat:Double,long:Double) -> String{
-        var distance1:String
         let restaurantLocation = CLLocation(latitude: lat, longitude: long)
         var distance: CLLocationDistance
         distance = (userLocation?.distance(from: restaurantLocation))!
