@@ -59,6 +59,8 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         load()
         switchDistance()
         
+        chooseForMeButton.center.y += self.view.bounds.width
+        
         let fileManager = FileManager.default
         let tempFolderPath = NSTemporaryDirectory()
         
@@ -72,11 +74,17 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
             print("Could not clear temp folder: \(error.debugDescription)")
         }
         
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: [],
+                       animations: {
+                        self.chooseForMeButton.center.y -= self.view.bounds.width
+        },
+                       completion: nil
+        )
+        
     }
     
     
     @IBOutlet weak var chooseForMeButton: UIButton!
-    
     @IBAction func chooseForMeButton(_ sender: Any) {
         
         // If the restaurants list is empty, do not allow this button to work
@@ -203,6 +211,22 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     // This function gets called when a table row is selected
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "detail", sender: nil)
+    }
+    
+    // animation for the UITableView
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.alpha = 0
+        let transform = CATransform3DTranslate(CATransform3DIdentity, -100, 20, 0)
+        cell.layer.transform = transform
+        
+        UIView.animate(withDuration: 0.3, delay: 0.0, options: .curveEaseOut,
+                       animations: {
+                        cell.alpha = 1.0
+                        cell.layer.transform = CATransform3DIdentity
+        },
+                       completion: nil
+        )
+        
     }
     
     // Populates restaurantList using the maps api and json file

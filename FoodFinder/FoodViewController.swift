@@ -16,6 +16,7 @@ class FoodViewController: UIViewController {
     @IBOutlet weak var locationTextView: UITextView!
     var location:String = ""
     
+    @IBOutlet weak var foodContainerImageView: UIImageView!
     @IBOutlet weak var foodImageView: UIImageView!
     var photo:String = ""
     
@@ -38,12 +39,44 @@ class FoodViewController: UIViewController {
         
         foodName.text = name
         locationTextView.text = location
+        foodName.isUserInteractionEnabled = false
+        locationTextView.isUserInteractionEnabled = false
         
         let task = loadPhoto()
         task.resume()
         
+        foodImageView.center.x += view.bounds.width
+        foodContainerImageView.center.x += view.bounds.width
+        addToFavoritesButton.center.x -= view.bounds.width * 2
+        copyLocationButton.center.x += view.bounds.width * 2
+        
+        animate()
+
+    }
+    
+    func animate() {
+        
+        UIView.animate(withDuration: 1, delay: 0.0, options: [], animations: {
+            self.foodImageView.center.x -= self.view.bounds.width
+            self.foodContainerImageView.center.x -= self.view.bounds.width
+        },
+            completion: nil
+        )
+        
+        UIView.animate(withDuration: 1, delay: 0.3, options: [], animations: {
+            self.addToFavoritesButton.center.x += self.view.bounds.width * 2
+        },
+                       completion: nil
+        )
+        
+        UIView.animate(withDuration: 1, delay: 0.5, options: [], animations: {
+            self.copyLocationButton.center.x -= self.view.bounds.width * 2
+        },
+                       completion: nil
+        )
         
     }
+    
 
     func setName(t:String) {
         name = t

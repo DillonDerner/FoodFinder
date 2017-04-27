@@ -164,7 +164,8 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
         table.deleteRows(at: [indexPath], with: .fade)
         save()
     }
-    ////////////////////////////
+    
+    // animation for the UITableView
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.alpha = 0
         let transform = CATransform3DTranslate(CATransform3DIdentity, -100, 20, 0)
@@ -178,28 +179,6 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
                        completion: nil
         )
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        /**
-        cell.layer.transform = CATransform3DMakeScale(-1, -1, 1)
-        
-        UIView.animate(withDuration: 3, animations: {
-            cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
-        },completion: { finished in
-            UIView.animate(withDuration: 0.1, animations: {
-                cell.layer.transform = CATransform3DMakeScale(1, 1, 1)
-            })
-        })
-        */
     }
     
     
