@@ -54,6 +54,9 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     
     // Loads ViewController
     override func viewDidLoad() {
+        
+        restaurantsTable.estimatedRowHeight = 25
+        restaurantsTable.rowHeight = UITableViewAutomaticDimension
         super.viewDidLoad()
         
         load()
@@ -197,7 +200,7 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
     
     // Populates data about each restaurant
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! NearMeTableViewCellController
         
         // Each restaurant's lat and long
         let geometry = restaurants[indexPath.row]["geometry"] as? [String: Any]
@@ -206,8 +209,8 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         let restaurantLong = location?["lng"] as? Double
         
         // Populates each cell with Name and Distance from our user
-        cell.textLabel!.text = restaurants[indexPath.row] ["name"] as? String
-        cell.detailTextLabel!.text = getRestaurantDistance(lat: restaurantLat!, long: restaurantLong!)
+        cell.nameLabel.text = restaurants[indexPath.row] ["name"] as? String
+        cell.locationLabel.text = getRestaurantDistance(lat: restaurantLat!, long: restaurantLong!)
 
         return cell
     }
