@@ -126,8 +126,12 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         // setup a list of the current restaurant names
         var restaurantLocationList:[String] = []
         for restaurant in restaurants{
-            let thisLocation = String(describing: restaurant.object(forKey: "vicinity")!)
-            restaurantLocationList.append(thisLocation)
+            if (restaurant.object(forKey: "vicinity") == nil) {
+                restaurantLocationList.append(" ")
+            } else {
+                let thisLocation = String(describing: restaurant.object(forKey: "vicinity")!)
+                restaurantLocationList.append(thisLocation)
+            }
         }
         
         
@@ -265,31 +269,31 @@ class NearMeViewController: UIViewController, UITableViewDataSource, UITableView
         // Send Name
         foodView.setName(t: restaurants[selectedRow]["name"]! as! String)
         
-        // print(restaurants[selectedRow]["name"]!)
         
         // Send Location
-        foodView.setLocation(t: restaurants[selectedRow]["vicinity"]! as! String)
-        
-        // print(restaurants[selectedRow]["vicinity"]!)
-        
-        let photos = restaurants[selectedRow]["photos"]! as? NSArray
-        
-        let photosdic = photos![0] as! NSDictionary
-        
-        let photoref = photosdic["photo_reference"]! as? String    // photo reference
-        
-        //send photoref to favoritesViewController.swift
-        
-        foodView.setPhoto(t: photoref!)
-        
-        deletepreviousPhotos()  //delete previous photo to load new in temp folder
-     
+        if (restaurants[selectedRow]["vicinity"] == nil) {
+                foodView.setLocation(t: "The address could not be found.")
+        } else {
+            foodView.setLocation(t: restaurants[selectedRow]["vicinity"]! as! String)
+        }
 
+        if (restaurants[selectedRow]["photos"] != nil) {
+            let photos = restaurants[selectedRow]["photos"]! as? NSArray
+            
+            let photosdic = photos![0] as! NSDictionary
+            
+            let photoref = photosdic["photo_reference"]! as? String    // photo reference
+            
+            //send photoref to favoritesViewController.swift
+            foodView.setPhoto(t: photoref!)
+            
+            //delete previous photo to load new in temp folder
+            deletepreviousPhotos()
+        }
     }
     
     
-     // delete all the previous photos from temp folder 
-    
+     // delete all the previous photos from temp folder
     func deletepreviousPhotos() {
         let fileManager = FileManager.default
         let tempFolderPath = NSTemporaryDirectory()

@@ -60,27 +60,62 @@ class FavoritesViewController: UIViewController, UITableViewDataSource, UITableV
     @IBOutlet weak var chooseForMeButton: UIButton!
     
     @IBAction func chooseForMeButton(_ sender: Any) {
+        
         self.colorWheelImage.isHidden = false
         self.chooseForMeButton.isEnabled = false
         
-        UIView.animate(
-            withDuration: 2,
-            delay: 0,
-            animations: ({
-                let diceRoll = Int(arc4random_uniform(6) + 1)
-                
-                for _ in 1...diceRoll {
-                    self.colorWheelImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
-                    self.colorWheelImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 2)
-                }
-            }),
-            completion: { (finished:Bool) in
-                self.colorWheelImage.isHidden = true
-                self.chooseForMeButton.isEnabled = true
-                self.showRandomAlert(self.chooseForMeButton)
+        if (data.count == 0) {
+            UIView.animate(
+                withDuration: 2,
+                delay: 0,
+                animations: ({
+                    let diceRoll = Int(arc4random_uniform(6) + 1)
+                    
+                    for _ in 1...diceRoll {
+                        self.colorWheelImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+                        self.colorWheelImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 2)
+                    }
+                }),
+                completion: { (finished:Bool) in
+                    self.colorWheelImage.isHidden = true
+                    self.chooseForMeButton.isEnabled = true
+                    self.showEmptyAlert(self.chooseForMeButton)
             }
-        )
+            )
+        } else {
+            UIView.animate(
+                withDuration: 2,
+                delay: 0,
+                animations: ({
+                    let diceRoll = Int(arc4random_uniform(6) + 1)
+                    
+                    for _ in 1...diceRoll {
+                        self.colorWheelImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
+                        self.colorWheelImage.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 2)
+                    }
+                }),
+                completion: { (finished:Bool) in
+                    self.colorWheelImage.isHidden = true
+                    self.chooseForMeButton.isEnabled = true
+                    self.showRandomAlert(self.chooseForMeButton)
+            }
+            )
+        }
     }
+    
+    // Presets the user with a popup saying they should add some favorites to their list
+    @IBAction func showEmptyAlert(_ sender: UIButton) {
+        
+        // create the alert
+        let alert = UIAlertController(title: "Add Some Favorites First!", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        
+        // add an action (button)
+        alert.addAction(UIAlertAction(title: "Ok!", style: UIAlertActionStyle.default, handler: nil))
+        
+        // show the alert
+        self.present(alert, animated: true, completion: nil)
+    }
+    
     
     // Presets the user with a popup showing the random restaurant we selected for them
     @IBAction func showRandomAlert(_ sender: UIButton) {
