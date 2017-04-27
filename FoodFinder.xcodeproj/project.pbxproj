@@ -15,6 +15,7 @@
 		FA9E5C5B1EAE7A32001F9FFF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9E5C5A1EAE7A32001F9FFF /* HomeViewController.swift */; };
 		FAB575161EA11B710099289D /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB575151EA11B710099289D /* SettingViewController.swift */; };
 		FAB5751A1EA175E60099289D /* FoodViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAB575191EA175E60099289D /* FoodViewController.swift */; };
+		FABD67931EB282480018C45D /* NearMeTableViewCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABD67921EB282480018C45D /* NearMeTableViewCellController.swift */; };
 		FAF705FA1E9EAA870006494C /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF705F91E9EAA870006494C /* FavoritesViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -29,6 +30,7 @@
 		FA9E5C5A1EAE7A32001F9FFF /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		FAB575151EA11B710099289D /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		FAB575191EA175E60099289D /* FoodViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoodViewController.swift; sourceTree = "<group>"; };
+		FABD67921EB282480018C45D /* NearMeTableViewCellController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearMeTableViewCellController.swift; sourceTree = "<group>"; };
 		FAF705F91E9EAA870006494C /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -66,6 +68,7 @@
 				F1D197931E92F1AB003CA409 /* Assets.xcassets */,
 				FA9E5C5A1EAE7A32001F9FFF /* HomeViewController.swift */,
 				F1D1978C1E92F1AB003CA409 /* AppDelegate.swift */,
+				FABD67921EB282480018C45D /* NearMeTableViewCellController.swift */,
 				F1D1978E1E92F1AB003CA409 /* NearMeViewController.swift */,
 				FAF705F91E9EAA870006494C /* FavoritesViewController.swift */,
 				FAB575191EA175E60099289D /* FoodViewController.swift */,
@@ -150,6 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1D1978F1E92F1AB003CA409 /* NearMeViewController.swift in Sources */,
+				FABD67931EB282480018C45D /* NearMeTableViewCellController.swift in Sources */,
 				FAB5751A1EA175E60099289D /* FoodViewController.swift in Sources */,
 				FAF705FA1E9EAA870006494C /* FavoritesViewController.swift in Sources */,
 				F1D1978D1E92F1AB003CA409 /* AppDelegate.swift in Sources */,
